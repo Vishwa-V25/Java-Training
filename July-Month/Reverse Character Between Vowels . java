@@ -1,0 +1,96 @@
+Problem Title: Reverse Characters Between Each Pair of Vowels
+
+Problem Description:
+Given a lowercase English string s, reverse the characters between every two consecutive vowels in the string. If there are multiple such vowel pairs, perform the 
+reversal operation separately for each pair.
+Only lowercase English letters will appear in the string, and vowels are considered as {'a', 'e', 'i', 'o', 'u'}.
+Return the resulting string after all such reversals are done.
+
+ Note:
+For every pair of vowels, reverse the characters between them (not including the vowels).
+If two vowels are adjacent, the portion to reverse is empty, so the string remains unchanged for that pair.
+After handling a pair of vowels, the second vowel becomes the start for the next pair search.
+
+Example 1:
+Input:
+s = "helicopter"
+
+Output:
+hecilopetr
+
+Explanation:
+Vowel positions: e(1), i(3), o(6), e(8)
+Between e(1) and i(3): reverse "l" → no change
+Between i(3) and o(6): reverse "l", "c" → becomes "c", "l"
+Between o(6) and e(8): reverse "p", "t" → becomes "t", "p"
+Final string: "hecilopetr"
+
+Example 2:
+Input:
+s = "aeiou"
+
+Output:
+aeiou
+
+Explanation:
+Every pair of vowels is adjacent, so nothing changes.
+
+Example 3:
+Input:
+s = "abecidofug"
+
+Output:
+abecidofug
+
+Explanation:
+Vowels: a, e, i, o, u
+Reversals happen between a-e, e-i, i-o, o-u
+No characters lie between any of these pairs to reverse, so the string remains unchanged.
+
+💡 Constraints:
+1 <= s.length <= 10^5
+s consists of lowercase English letters only.
+
+Solution
+
+import java.util.*;
+public class Main {
+    public static void reverse(char[] ch,int left,int right){
+        while(left<right){
+           char temp=ch[left];
+            ch[left]=ch[right];
+            ch[right]=temp;
+        left++;
+        right--;
+        }
+    }
+    public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+      String str = sc.next();
+      int n =str.length();
+      char[] ch=str.toCharArray();
+      Set<Character> set = new HashSet<>();
+      set.add('a');
+      set.add('e');
+      set.add('i');
+      set.add('o');
+      set.add('u');
+     int count=0;
+     int start=-1;
+     for(int i=0;i<n;i++){
+         char c=str.charAt(i);
+         if(set.contains(c)){
+            count++;
+            if(count==1){
+                start=i;
+            }
+            else if(count==2){
+                reverse(ch,start+1,i-1);
+                start=i;
+                count=1;
+            }
+         }
+     }
+        System.out.print(new String(ch));
+    }
+}
