@@ -18,7 +18,7 @@ Output: No common character
 _______________________________________________________________________________________________________________________________________________________________________
 
 Solution
-
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
       Scanner sc = new Scanner (System.in);
